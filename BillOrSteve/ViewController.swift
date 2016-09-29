@@ -31,14 +31,18 @@ class ViewController: UIViewController {
                     }
                 }
             }
-            if (randFactsTwoPeople["Steve Jobs"]?.isEmpty)!{
-                print(randFactsTwoPeople["Steve Jobs"]?.isEmpty)
-                showFact()
-                scoreLabel.text = "\(String(score)) / 9"
-            } else {
-            showFact()
-            }
+//            if (randFactsTwoPeople["Steve Jobs"]?.isEmpty)!{
+//                print(randFactsTwoPeople["Steve Jobs"]?.isEmpty)
+//                showFact()
+//                scoreLabel.text = "\(String(score)) / 9"
+//            } else {
+//            showFact()
+//            }
         }
+        if let fact = factLabel.text {
+            previousFact = fact
+        }
+        showFact()
     }
     
     @IBAction func billLabel(_ sender: AnyObject) {
@@ -54,28 +58,50 @@ class ViewController: UIViewController {
                     }
                 }
             }
-            if (randFactsTwoPeople["Bill Gates"]?.isEmpty)!{
-                print(randFactsTwoPeople["Bill Gates"]?.isEmpty)
-                showFact()
-                scoreLabel.text = "\(String(score)) / 9"
-            } else {
-                showFact()
-            }
+//            if (randFactsTwoPeople["Bill Gates"]?.isEmpty)!{
+//                print(randFactsTwoPeople["Bill Gates"]?.isEmpty)
+//                showFact()
+//                scoreLabel.text = "\(String(score)) / 9"
+//            } else {
+//                showFact()
+//            }
         }
+        if let fact = factLabel.text {
+        previousFact = fact
+        }
+        showFact()
     }
+    
+    
+    
+    @IBOutlet weak var resetButton: UIButton!
+    @IBAction func resetGameButton(_ sender: UIButton) {
+        score = 0
+        scoreLabel.text = "\(String(score)) / 9"
+        randFactsTwoPeople.removeAll()
+        createFactDict()
+        showFact()
+        resetButton.isHidden = true
+    }
+    
+    
     
     // Create your stored properties here
     
     var randFactsTwoPeople: [String : [String]] = [:]
     var correctName = ""
+    var previousFact = ""
     var fact = ""
     var score = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        resetButton.isHidden = true
         createFactDict()
         showFact()
     }
+    
+    
     
     func createFactDict() {
         let steveFacts = ["He took a calligraphy course, which he says was instrumental in the future company products' attention to typography and font.",
@@ -98,17 +124,19 @@ class ViewController: UIViewController {
         guard !(randFactsTwoPeople["Steve Jobs"]?.isEmpty)! || !(randFactsTwoPeople["Bill Gates"]?.isEmpty)! else {
 //            score += 1
             scoreLabel.text = "\(String(score)) / 9"
+            resetButton.isHidden = false
             return ("none", "You Won")
         }
         while (randFactsTwoPeople[randPerson]?.isEmpty)! {
             randPerson = randomPerson()
-            continue
         }
-        if let getFact = randFactsTwoPeople[randPerson] {
-            let factIndex = randomIndex(fromArray: getFact) // Returns random Int from 0 to getFact.count
+        repeat {
+        if let listOfFacts = randFactsTwoPeople[randPerson] {
+            let factIndex = randomIndex(fromArray: listOfFacts) // Returns random Int from 0 to getFact.count
             
-            fact = getFact[factIndex]
+            fact = listOfFacts[factIndex]
         }
+        } while fact == previousFact
         return (randPerson, fact)
     }
     
