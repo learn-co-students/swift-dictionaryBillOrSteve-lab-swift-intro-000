@@ -16,13 +16,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var wrongCounter: UILabel!
     
     var billAndSteveFacts: [String : [String]] = [:]
+    var currentCorrectCounter = 0
+    var currentWrongCounter = 0
     
     override func viewDidLoad() {
         createFacts()
         super.viewDidLoad()
     }
     
-    // Helper Functions
     func createFacts() {
         let steveFacts = [
             "He took a calligraphy course, which he says was instrumental in the future company products' attention to typography and font.",
@@ -46,31 +47,36 @@ class ViewController: UIViewController {
     @IBAction func answerGuessed(_ sender: UIButton) {
         switch sender {
         case billGatesPortrait:
-            print("Bill Represent!")
+            print("Bill Gates Portrait Pressed!")
+            showFact()
         case steveJobsPortrait:
-            print("Steve Represent!")
+            print("Steve Jobs Portrait Pressed!")
+            showFact()
         default:
-            print("Try Again")
+            print("Nothing registered")
         }
-        getRandomFact()
+//        getRandomFact()
     }
     
     func getRandomFact() -> (String, String) {
-        randomFact.text =
-        
-        
         print("getRandomFact() Activated")
         return ("Yo", "Yo")
     }
-    
+    // update the counter points here and then it returns the key and the fact to display.
+    // decide between tucking this within the cases, and or within answerGuessed.
     // uses randomPerson to grab a person, pulls out the key(name of person)
     // key points to the array within dict to pull a random quote by randomIndex
     // returns them both
     
     func showFact() {
-//        var correctPerson: String = ""
-//        var guessedCorrect = 0
-//        var guessedWrong = 0
+        getRandomFact()
+        // returns it in ("Value 1", "Value 2") need to parse these two separately
+        updateAndDisplayCounter()
+//        currentCorrectCounter += 1
+//        currentWrongCounter += 1
+//        correctCounter.text = "\(currentCorrectCounter)"
+//        wrongCounter.text = "\(currentWrongCounter)"
+        randomFact.text = ''
     }
     
     // TODO:
@@ -80,9 +86,17 @@ class ViewController: UIViewController {
     // When the random person is received here, correctPerson becomes that and pull the fact with that key
     // When the correct person is tapped and it matches comparison to correctPerson or not, update the score
     // getRandomFact goes into this func
+    //        var correctPerson: String = ""
     
     func randomIndex(fromArray array: [String]) -> Int {
         return Int(arc4random_uniform(UInt32(array.count)))
+    }
+    
+    func updateAndDisplayCounter() {
+        currentCorrectCounter += 1
+        currentWrongCounter += 1
+        correctCounter.text = "\(currentCorrectCounter)"
+        wrongCounter.text = "\(currentWrongCounter)"
     }
     
     func randomPerson() -> String {
