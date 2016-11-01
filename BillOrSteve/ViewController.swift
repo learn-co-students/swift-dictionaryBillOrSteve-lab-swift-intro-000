@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var correctCounter: UILabel!
     @IBOutlet weak var wrongCounter: UILabel!
     
-    // Create your stored properties here
     var billAndSteveFacts: [String : [String]] = [:]
     
     override func viewDidLoad() {
@@ -44,16 +43,26 @@ class ViewController: UIViewController {
     }
     
     func getRandomFact() -> (String, String) {
-        //todo
-        // pulls a random fact
         return (String, String)
     }
     
+    // uses randomPerson to grab a person, pulls out the key(name of person)
+    // key points to the array within dict to pull a random quote by randomIndex
+    // returns them both
+    
     func showFact() {
-        //todo
-        // upon click shows the fact.
-        // updates the counter if it was wrong
+        var correctPerson: String = ""
+        var guessedCorrect = 0
+        var guessedWrong = 0
     }
+    
+    // TODO:
+    // upon click of either portrait:
+    // = shows the fact
+    // = updates the counter if it was wrong
+    // When the random person is received here, correctPerson becomes that and pull the fact with that key
+    // When the correct person is tapped and it matches comparison to correctPerson or not, update the score
+    // getRandomFact goes into this func
     
     func randomIndex(fromArray array: [String]) -> Int {
         return Int(arc4random_uniform(UInt32(array.count)))
