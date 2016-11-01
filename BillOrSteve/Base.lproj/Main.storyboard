@@ -26,13 +26,16 @@
                                 <color key="shadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <view contentMode="scaleToFill" misplaced="YES" id="k5I-ep-1Jb">
-                                <rect key="frame" x="0.0" y="489" width="375" height="178"/>
+                                <rect key="frame" x="0.0" y="489" width="446" height="233"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="waZ-S2-rBo">
                                         <rect key="frame" x="48" y="13" width="91" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="steve" image="SteveJobs"/>
+                                        <connections>
+                                            <action selector="answerGuessed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VHY-Hd-4c7"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Steve" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bjg-Hq-bR1">
                                         <rect key="frame" x="50" y="136" width="86" height="33"/>
@@ -45,6 +48,9 @@
                                         <rect key="frame" x="243" y="40" width="95" height="130"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="bill" image="BillGates"/>
+                                        <connections>
+                                            <action selector="answerGuessed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vVl-KP-okB"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Bill" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3WI-Pj-U8T">
                                         <rect key="frame" x="248" y="0.0" width="84" height="33"/>
@@ -77,7 +83,6 @@
                     <connections>
                         <outlet property="billGatesPortrait" destination="pmx-kv-Kjc" id="KOT-5o-eJb"/>
                         <outlet property="correctCounter" destination="EDs-I2-kTY" id="dUZ-oC-loi"/>
-                        <outlet property="factNumberCounter" destination="EDs-I2-kTY" id="YEo-j3-DEd"/>
                         <outlet property="randomFact" destination="mVc-Ct-l0W" id="mh5-mg-B2S"/>
                         <outlet property="steveJobsPortrait" destination="waZ-S2-rBo" id="pls-mN-Mff"/>
                         <outlet property="wrongCounter" destination="9sW-tV-uuj" id="IM2-wI-vmP"/>

@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     var billAndSteveFacts: [String : [String]] = [:]
     
     override func viewDidLoad() {
+        createFacts()
         super.viewDidLoad()
     }
     
@@ -42,8 +43,18 @@ class ViewController: UIViewController {
         billAndSteveFacts["Steve Jobs"] = steveFacts
     }
     
+    @IBAction func answerGuessed(_ sender: UIButton) {
+        if sender == billGatesPortrait {
+            print("Bill Represent!")
+        }
+        
+        if sender == steveJobsPortrait {
+            print("Steve Represent!")
+        }
+    }
+    
     func getRandomFact() -> (String, String) {
-        return (String, String)
+        return ("Yo", "Yo")
     }
     
     // uses randomPerson to grab a person, pulls out the key(name of person)
@@ -51,9 +62,9 @@ class ViewController: UIViewController {
     // returns them both
     
     func showFact() {
-        var correctPerson: String = ""
-        var guessedCorrect = 0
-        var guessedWrong = 0
+//        var correctPerson: String = ""
+//        var guessedCorrect = 0
+//        var guessedWrong = 0
     }
     
     // TODO:
