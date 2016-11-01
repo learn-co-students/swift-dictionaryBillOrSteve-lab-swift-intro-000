@@ -44,16 +44,22 @@ class ViewController: UIViewController {
     }
     
     @IBAction func answerGuessed(_ sender: UIButton) {
-        if sender == billGatesPortrait {
+        switch sender {
+        case billGatesPortrait:
             print("Bill Represent!")
-        }
-        
-        if sender == steveJobsPortrait {
+        case steveJobsPortrait:
             print("Steve Represent!")
+        default:
+            print("Try Again")
         }
+        getRandomFact()
     }
     
     func getRandomFact() -> (String, String) {
+        randomFact.text =
+        
+        
+        print("getRandomFact() Activated")
         return ("Yo", "Yo")
     }
     
