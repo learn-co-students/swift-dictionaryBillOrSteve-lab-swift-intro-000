@@ -18,10 +18,13 @@ class ViewController: UIViewController {
     var billAndSteveFacts: [String : [String]] = [:]
     var currentCorrectCounter = 0
     var currentWrongCounter = 0
+    var currentAnswer = ""
+    var selectedPerson = ""
     
     override func viewDidLoad() {
-        createFacts()
         super.viewDidLoad()
+        createFacts()
+        currentAnswer = randomPerson()
     }
     
     func createFacts() {
@@ -58,25 +61,33 @@ class ViewController: UIViewController {
 //        getRandomFact()
     }
     
-    func getRandomFact() -> (String, String) {
-        print("getRandomFact() Activated")
-        return ("Yo", "Yo")
+    func getRandomFact(selected: String) -> ([String]) {
+        var keyOfSelected: String = ""
+        var arrayOfValues = [String]()
+        // rip through dictionary and pull out the name and the fact using randomIndex & randomPerson
+        // update currentAnswer and randomFact
+        // this sets the currentAnswer for the next round.
+        currentAnswer = randomPerson()
+        
+        currentAnswer = keyOfSelected
+        return (arrayOfValues)
     }
     // update the counter points here and then it returns the key and the fact to display.
     // decide between tucking this within the cases, and or within answerGuessed.
     // uses randomPerson to grab a person, pulls out the key(name of person)
     // key points to the array within dict to pull a random quote by randomIndex
     // returns them both
+// use this, then find it via index.
+//    let unSortedCodeKeys = Array(codes.keys)
+//    print(unSortedCodeKeys)
+//    
+//    let sortedCodeKeysAscending = unSortedCodeKeys.sorted(by: <)
+//    print(sortedCodeKeysAscending)
     
     func showFact() {
-        getRandomFact()
-        // returns it in ("Value 1", "Value 2") need to parse these two separately
         updateAndDisplayCounter()
-//        currentCorrectCounter += 1
-//        currentWrongCounter += 1
-//        correctCounter.text = "\(currentCorrectCounter)"
-//        wrongCounter.text = "\(currentWrongCounter)"
-        randomFact.text = ''
+        getRandomFact(selected: currentAnswer)
+        // returns it in ("Value 1", "Value 2") need to parse these two separately
     }
     
     // TODO:
@@ -93,11 +104,41 @@ class ViewController: UIViewController {
     }
     
     func updateAndDisplayCounter() {
-        currentCorrectCounter += 1
-        currentWrongCounter += 1
-        correctCounter.text = "\(currentCorrectCounter)"
-        wrongCounter.text = "\(currentWrongCounter)"
+        switch selectedPerson {
+        case "Bill Gates":
+            // remove print after finishing
+            print("Lord Gates Was Chosen")
+            if selectedPerson == currentAnswer {
+                print("Correct Answer")
+                currentCorrectCounter += 1
+                correctCounter.text = "\(currentCorrectCounter)"
+            } else {
+                print("Wrong Answer")
+                currentWrongCounter += 1
+                wrongCounter.text = "\(currentWrongCounter)"
+            }
+        case "Steve Jobs":
+            // remove print after finishing
+            print("Lord Jobs Was Chosen")
+            if selectedPerson == currentAnswer {
+                print("Correct Answer")
+                currentCorrectCounter += 1
+                correctCounter.text = "\(currentCorrectCounter)"
+            } else {
+                print("Wrong Answer")
+                currentWrongCounter += 1
+                wrongCounter.text = "\(currentWrongCounter)"
+            }
+        default:
+            print("You chose poorly")
+        }
+//        currentCorrectCounter += 1
+//        currentWrongCounter += 1
+//        correctCounter.text = "\(currentCorrectCounter)"
+//        wrongCounter.text = "\(currentWrongCounter)"
     }
+    
+    
     
     func randomPerson() -> String {
         let randomNumber = arc4random_uniform(2)
