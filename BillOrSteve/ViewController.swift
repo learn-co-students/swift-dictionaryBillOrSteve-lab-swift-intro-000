@@ -16,8 +16,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var wrongCounter: UILabel!
     
     var billAndSteveFacts: [String : [String]] = [:]
-    var currentCorrectCounter = 0
-    var currentWrongCounter = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,63 +42,60 @@ class ViewController: UIViewController {
         billAndSteveFacts["Steve Jobs"] = steveFacts
     }
     
+    /*
+     TODO:
+     =====================================
+     - getRandomFact() now returns two named tuple values.
+     -
+     */
+    
     @IBAction func answerGuessed(_ sender: UIButton) {
-        getRandomFact()
         switch sender {
         case billGatesPortrait:
             print("Bill Gates Portrait Pressed!")
-            showFact(fact: currentAnswer)
-            updateCounterShowFact(person: currentAnswer)
+            getRandomFact()
+//            showFact(fact: currentAnswer)
+//            updateCounterShowFact(person: currentAnswer)
         case steveJobsPortrait:
             print("Steve Jobs Portrait Pressed!")
-            showFact(fact: currentAnswer)
+            getRandomFact()
+//            showFact(fact: currentAnswer)
 //            updateCounterShowFact(person: currentAnswer)
         default:
             print("Nothing registered")
         }
     }
     
-    // tuples passed from getRandomFact needs to go in as fact: currentAnswer and person: CurrentAnswer
-    
-    func getRandomFact() -> (String, String) {
+    func getRandomFact() -> (personKey: String, factFromKey: String) {
+        var indexFromArr: Int = 0
         var personKey = randomPerson()
-        print(personKey)
-        var factValue: String = ""
-        // rip through dictionary and pull out the name and the fact using randomIndex & randomPerson
-        // update currentAnswer and randomFact
-        // this sets the currentAnswer for the next round.
-        return (personKey, factValue)
+        var factFromKey: String = ""
+        
+        if let constFactFromKey = billAndSteveFacts[personKey] {
+            indexFromArr = randomIndex(fromArray: constFactFromKey)
+            factFromKey = constFactFromKey[indexFromArr]
+        }
+        
+        return (personKey, factFromKey)
     }
-    // update the counter points here and then it returns the key and the fact to display.
-    // decide between tucking this within the cases, and or within answerGuessed.
-    // uses randomPerson to grab a person, pulls out the key(name of person)
-    // key points to the array within dict to pull a random quote by randomIndex
-    // returns them both
-// use this, then find it via index.
-//    let unSortedCodeKeys = Array(codes.keys)
-//    print(unSortedCodeKeys)
-//    
-//    let sortedCodeKeysAscending = unSortedCodeKeys.sorted(by: <)
-//    print(sortedCodeKeysAscending)
     
     func showFact() {
         // returns it in ("Value 1", "Value 2") need to parse these two separately
     }
     
-    // TODO:
-    // upon click of either portrait:
-    // = shows the fact
-    // = updates the counter if it was wrong
-    // When the random person is received here, correctPerson becomes that and pull the fact with that key
-    // When the correct person is tapped and it matches comparison to correctPerson or not, update the score
-    // getRandomFact goes into this func
-    //        var correctPerson: String = ""
-    
     func randomIndex(fromArray array: [String]) -> Int {
         return Int(arc4random_uniform(UInt32(array.count)))
     }
     
-    // Might have to remove the func below and put it back into showFact
+    func randomPerson() -> String {
+        let randomNumber = arc4random_uniform(2)
+        
+        if randomNumber == 0 {
+            return "Steve Jobs"
+        } else {
+            return "Bill Gates"
+        }
+    }
     
     func updateCounterShowFact(person: String) {
         switch person {
@@ -133,13 +128,4 @@ class ViewController: UIViewController {
         }
     }
     
-    func randomPerson() -> String {
-        let randomNumber = arc4random_uniform(2)
-        
-        if randomNumber == 0 {
-            return "Steve Jobs"
-        } else {
-            return "Bill Gates"
-        }
-    }
 }
