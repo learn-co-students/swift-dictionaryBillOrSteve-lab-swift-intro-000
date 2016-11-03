@@ -18,13 +18,10 @@ class ViewController: UIViewController {
     var billAndSteveFacts: [String : [String]] = [:]
     var currentCorrectCounter = 0
     var currentWrongCounter = 0
-    var currentAnswer = ""
-    var selectedPerson = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         createFacts()
-        currentAnswer = randomPerson()
     }
     
     func createFacts() {
@@ -48,29 +45,31 @@ class ViewController: UIViewController {
     }
     
     @IBAction func answerGuessed(_ sender: UIButton) {
+        getRandomFact()
         switch sender {
         case billGatesPortrait:
             print("Bill Gates Portrait Pressed!")
-            showFact()
+            showFact(fact: currentAnswer)
+            updateCounterShowFact(person: currentAnswer)
         case steveJobsPortrait:
             print("Steve Jobs Portrait Pressed!")
-            showFact()
+            showFact(fact: currentAnswer)
+//            updateCounterShowFact(person: currentAnswer)
         default:
             print("Nothing registered")
         }
-//        getRandomFact()
     }
     
-    func getRandomFact(selected: String) -> ([String]) {
-        var keyOfSelected: String = ""
-        var arrayOfValues = [String]()
+    // tuples passed from getRandomFact needs to go in as fact: currentAnswer and person: CurrentAnswer
+    
+    func getRandomFact() -> (String, String) {
+        var personKey = randomPerson()
+        print(personKey)
+        var factValue: String = ""
         // rip through dictionary and pull out the name and the fact using randomIndex & randomPerson
         // update currentAnswer and randomFact
         // this sets the currentAnswer for the next round.
-        currentAnswer = randomPerson()
-        
-        currentAnswer = keyOfSelected
-        return (arrayOfValues)
+        return (personKey, factValue)
     }
     // update the counter points here and then it returns the key and the fact to display.
     // decide between tucking this within the cases, and or within answerGuessed.
@@ -85,8 +84,6 @@ class ViewController: UIViewController {
 //    print(sortedCodeKeysAscending)
     
     func showFact() {
-        updateAndDisplayCounter()
-        getRandomFact(selected: currentAnswer)
         // returns it in ("Value 1", "Value 2") need to parse these two separately
     }
     
@@ -103,8 +100,10 @@ class ViewController: UIViewController {
         return Int(arc4random_uniform(UInt32(array.count)))
     }
     
-    func updateAndDisplayCounter() {
-        switch selectedPerson {
+    // Might have to remove the func below and put it back into showFact
+    
+    func updateCounterShowFact(person: String) {
+        switch person {
         case "Bill Gates":
             // remove print after finishing
             print("Lord Gates Was Chosen")
@@ -132,13 +131,7 @@ class ViewController: UIViewController {
         default:
             print("You chose poorly")
         }
-//        currentCorrectCounter += 1
-//        currentWrongCounter += 1
-//        correctCounter.text = "\(currentCorrectCounter)"
-//        wrongCounter.text = "\(currentWrongCounter)"
     }
-    
-    
     
     func randomPerson() -> String {
         let randomNumber = arc4random_uniform(2)
