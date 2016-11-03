@@ -9,7 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet weak var randomFact: UILabel!
+
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var displayText: UILabel!
     @IBOutlet weak var steveJobsPortrait: UIButton!
     @IBOutlet weak var billGatesPortrait: UIButton!
     @IBOutlet weak var correctCounter: UILabel!
@@ -45,25 +47,28 @@ class ViewController: UIViewController {
     /*
      TODO:
      =====================================
-     - getRandomFact() now returns two named tuple values.
-     -
+     - getRandomFact() now returns two named tuple values, decide to tuck this or not inside showFact()
+     - updating counters need to be worked on
      */
     
     @IBAction func answerGuessed(_ sender: UIButton) {
         switch sender {
         case billGatesPortrait:
             print("Bill Gates Portrait Pressed!")
-            getRandomFact()
 //            showFact(fact: currentAnswer)
 //            updateCounterShowFact(person: currentAnswer)
         case steveJobsPortrait:
             print("Steve Jobs Portrait Pressed!")
-            getRandomFact()
 //            showFact(fact: currentAnswer)
 //            updateCounterShowFact(person: currentAnswer)
         default:
             print("Nothing registered")
         }
+    }
+    
+    @IBAction func didStartGame(_ sender: UIButton) {
+        startButton.isHidden = true
+        showFact()
     }
     
     func getRandomFact() -> (personKey: String, factFromKey: String) {
@@ -80,7 +85,16 @@ class ViewController: UIViewController {
     }
     
     func showFact() {
-        // returns it in ("Value 1", "Value 2") need to parse these two separately
+        let kvOfCEO = getRandomFact()
+//        display the fact and set the correct answer to the key.
+//        activate the counter and update.
+//        work on the update function
+//        if randomFact.text == "Start" {
+//            
+//            randomFact.text = kvOfCEO.0
+//        } else {
+//            randomFact.text = kvOfCEO.0
+//        }
     }
     
     func randomIndex(fromArray array: [String]) -> Int {

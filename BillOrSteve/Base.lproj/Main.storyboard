@@ -62,7 +62,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.66666668653488159" green="0.66666668653488159" blue="0.66666668653488159" alpha="0.36507601351351349" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="He took a calligraphy course, which he says was instrumental in the future company products' attention to typography and font." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mVc-Ct-l0W">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mVc-Ct-l0W">
                                 <rect key="frame" x="16" y="135" width="343" height="328"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
@@ -77,20 +77,33 @@
                                 <color key="highlightedColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="shadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TQS-db-0fV">
+                                <rect key="frame" x="124" y="258" width="127" height="82"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="didStartGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Ow-dR-Eiy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="billGatesPortrait" destination="pmx-kv-Kjc" id="KOT-5o-eJb"/>
                         <outlet property="correctCounter" destination="EDs-I2-kTY" id="dUZ-oC-loi"/>
+                        <outlet property="displayText" destination="mVc-Ct-l0W" id="gzs-lY-I6w"/>
                         <outlet property="randomFact" destination="mVc-Ct-l0W" id="mh5-mg-B2S"/>
+                        <outlet property="startButton" destination="TQS-db-0fV" id="KMq-Ec-Ry2"/>
                         <outlet property="steveJobsPortrait" destination="waZ-S2-rBo" id="pls-mN-Mff"/>
                         <outlet property="wrongCounter" destination="9sW-tV-uuj" id="IM2-wI-vmP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-55" y="391"/>
+            <point key="canvasLocation" x="-55.5" y="390.5"/>
         </scene>
     </scenes>
     <resources>
