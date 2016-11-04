@@ -44,23 +44,14 @@ class ViewController: UIViewController {
         billAndSteveFacts["Steve Jobs"] = steveFacts
     }
     
-    /*
-     TODO:
-     =====================================
-     - getRandomFact() now returns two named tuple values, decide to tuck this or not inside showFact()
-     - updating counters need to be worked on
-     */
-    
     @IBAction func answerGuessed(_ sender: UIButton) {
         switch sender {
         case billGatesPortrait:
             print("Bill Gates Portrait Pressed!")
-//            showFact(fact: currentAnswer)
-//            updateCounterShowFact(person: currentAnswer)
+//            showFact()
         case steveJobsPortrait:
             print("Steve Jobs Portrait Pressed!")
-//            showFact(fact: currentAnswer)
-//            updateCounterShowFact(person: currentAnswer)
+//            showFact()
         default:
             print("Nothing registered")
         }
@@ -83,18 +74,25 @@ class ViewController: UIViewController {
         
         return (personKey, factFromKey)
     }
+
+    /*
+     TODO:
+     - randomFact needs to be updated with the counter within showFact
+     // update these counters in an switch statement. Maybe ternary?
+     //        correctCounter.text = ""
+     //        wrongCounter.text = ""
+     */
     
     func showFact() {
-        let kvOfCEO = getRandomFact()
-//        display the fact and set the correct answer to the key.
-//        activate the counter and update.
-//        work on the update function
-//        if randomFact.text == "Start" {
-//            
-//            randomFact.text = kvOfCEO.0
-//        } else {
-//            randomFact.text = kvOfCEO.0
-//        }
+        let nameOfCeo = getRandomFact().0
+        let factOfCeo = getRandomFact().1
+        var correctPerson: String = nameOfCeo
+        displayText.text = factOfCeo
+    }
+    
+    func checkForWin() {
+        // dump this in show fact at the end or tuck it in the ibaction to check after every press.
+        // restarts the game, or show play again button.
     }
     
     func randomIndex(fromArray array: [String]) -> Int {
@@ -110,36 +108,4 @@ class ViewController: UIViewController {
             return "Bill Gates"
         }
     }
-    
-    func updateCounterShowFact(person: String) {
-        switch person {
-        case "Bill Gates":
-            // remove print after finishing
-            print("Lord Gates Was Chosen")
-            if selectedPerson == currentAnswer {
-                print("Correct Answer")
-                currentCorrectCounter += 1
-                correctCounter.text = "\(currentCorrectCounter)"
-            } else {
-                print("Wrong Answer")
-                currentWrongCounter += 1
-                wrongCounter.text = "\(currentWrongCounter)"
-            }
-        case "Steve Jobs":
-            // remove print after finishing
-            print("Lord Jobs Was Chosen")
-            if selectedPerson == currentAnswer {
-                print("Correct Answer")
-                currentCorrectCounter += 1
-                correctCounter.text = "\(currentCorrectCounter)"
-            } else {
-                print("Wrong Answer")
-                currentWrongCounter += 1
-                wrongCounter.text = "\(currentWrongCounter)"
-            }
-        default:
-            print("You chose poorly")
-        }
-    }
-    
 }

@@ -95,7 +95,6 @@
                         <outlet property="billGatesPortrait" destination="pmx-kv-Kjc" id="KOT-5o-eJb"/>
                         <outlet property="correctCounter" destination="EDs-I2-kTY" id="dUZ-oC-loi"/>
                         <outlet property="displayText" destination="mVc-Ct-l0W" id="gzs-lY-I6w"/>
-                        <outlet property="randomFact" destination="mVc-Ct-l0W" id="mh5-mg-B2S"/>
                         <outlet property="startButton" destination="TQS-db-0fV" id="KMq-Ec-Ry2"/>
                         <outlet property="steveJobsPortrait" destination="waZ-S2-rBo" id="pls-mN-Mff"/>
                         <outlet property="wrongCounter" destination="9sW-tV-uuj" id="IM2-wI-vmP"/>
