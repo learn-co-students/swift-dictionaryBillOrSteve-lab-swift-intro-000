@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var wrongCounter: UILabel!
     
     var billAndSteveFacts: [String : [String]] = [:]
+    var correctPerson: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,12 +51,14 @@ class ViewController: UIViewController {
         switch sender {
         case billGatesPortrait:
             print("Bill Gates Portrait Pressed!")
-            showFact(selected: "Bill Gates")
-            checkForWin()
+            var selectedPerson = "Bill Gates"
+            showFact()
+            checkForWin(choice: selectedPerson)
         case steveJobsPortrait:
             print("Steve Jobs Portrait Pressed!")
-            showFact(selected: "Steve Jobs")
-            checkForWin()
+            var selectedPerson = "Steve Jobs"
+            showFact()
+            checkForWin(choice: selectedPerson)
         default:
             print("Nothing registered")
         }
@@ -63,8 +66,8 @@ class ViewController: UIViewController {
     
     @IBAction func didStartGame(_ sender: UIButton) {
         startButton.isHidden = true
-        let started = randomPerson()
-        showFact(selected: started)
+        correctPerson = randomPerson()
+        showFact()
     }
     
     func getRandomFact() -> (personKey: String, factFromKey: String) {
@@ -80,17 +83,9 @@ class ViewController: UIViewController {
         return (personKey, factFromKey)
     }
 
-    func showFact(selected: String) {
-        let nameOfCeo = getRandomFact().0
+    func showFact() {
         let factOfCeo = getRandomFact().1
-        var correctPerson = nameOfCeo
         displayText.text = factOfCeo
-        
-        /*if  selected == correctPerson {
-            keepScore(yOrN: true)
-        } else {
-            keepScore(yOrN: false)
-        }*/
     }
     
     /*func keepScore(yOrN: Bool) {
@@ -112,7 +107,9 @@ class ViewController: UIViewController {
         }
     }*/
     
-    func checkForWin() {
+    func checkForWin(choice: String) {
+        let nameOfCeo = getRandomFact().0
+        
         if correctCounter.text == "9" {
             print("Game Won!")
             displayText.text = "You Won!"
