@@ -48,10 +48,12 @@ class ViewController: UIViewController {
         switch sender {
         case billGatesPortrait:
             print("Bill Gates Portrait Pressed!")
-//            showFact()
+            showFact(sender: "Bill Gates")
+            checkForWin()
         case steveJobsPortrait:
             print("Steve Jobs Portrait Pressed!")
-//            showFact()
+            showFact(sender: "Steve Jobs")
+            checkForWin()
         default:
             print("Nothing registered")
         }
@@ -59,7 +61,6 @@ class ViewController: UIViewController {
     
     @IBAction func didStartGame(_ sender: UIButton) {
         startButton.isHidden = true
-        showFact()
     }
     
     func getRandomFact() -> (personKey: String, factFromKey: String) {
@@ -74,25 +75,51 @@ class ViewController: UIViewController {
         
         return (personKey, factFromKey)
     }
-
-    /*
-     TODO:
-     - randomFact needs to be updated with the counter within showFact
-     // update these counters in an switch statement. Maybe ternary?
-     //        correctCounter.text = ""
-     //        wrongCounter.text = ""
-     */
     
-    func showFact() {
+    /*func showFactForStart() {
         let nameOfCeo = getRandomFact().0
         let factOfCeo = getRandomFact().1
-        var correctPerson: String = nameOfCeo
+        let correctPerson = nameOfCeo
         displayText.text = factOfCeo
+    }*/
+
+    func showFact(sender: String) {
+        let nameOfCeo = getRandomFact().0
+        let factOfCeo = getRandomFact().1
+        let correctPerson = nameOfCeo
+        displayText.text = factOfCeo
+        
+        if  sender == correctPerson {
+            keepScore(yOrN: true)
+        } else {
+            keepScore(yOrN: false)
+        }
+    }
+    
+    func keepScore(yOrN: Bool) {
+        var guessedCorrect = 0
+        var guessedIncorrect = 0
+        var intToStrCounterTrue = String(guessedCorrect)
+        var intToStrCounterFalse = String(guessedIncorrect)
+        
+        if yOrN {
+            guessedCorrect += 1
+            correctCounter.text = intToStrCounterTrue
+            wrongCounter.text = intToStrCounterFalse
+        } else {
+            guessedIncorrect += 1
+            correctCounter.text = intToStrCounterTrue
+            wrongCounter.text = intToStrCounterFalse
+        }
     }
     
     func checkForWin() {
-        // dump this in show fact at the end or tuck it in the ibaction to check after every press.
-        // restarts the game, or show play again button.
+        if correctCounter.text == "9" {
+            print("Game Won!")
+            displayText.text = "You Won!"
+            steveJobsPortrait.isHidden = true
+            billGatesPortrait.isHidden = true
+        }
     }
     
     func randomIndex(fromArray array: [String]) -> Int {
