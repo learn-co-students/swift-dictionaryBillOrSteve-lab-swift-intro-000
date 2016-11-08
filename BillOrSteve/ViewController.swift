@@ -44,15 +44,17 @@ class ViewController: UIViewController {
         billAndSteveFacts["Steve Jobs"] = steveFacts
     }
     
+    // The selected person stays on for the next one. The timing of the check needs to be separated and done a step before the way it's being done now.
+    
     @IBAction func answerGuessed(_ sender: UIButton) {
         switch sender {
         case billGatesPortrait:
             print("Bill Gates Portrait Pressed!")
-            showFact(sender: "Bill Gates")
+            showFact(selected: "Bill Gates")
             checkForWin()
         case steveJobsPortrait:
             print("Steve Jobs Portrait Pressed!")
-            showFact(sender: "Steve Jobs")
+            showFact(selected: "Steve Jobs")
             checkForWin()
         default:
             print("Nothing registered")
@@ -61,6 +63,8 @@ class ViewController: UIViewController {
     
     @IBAction func didStartGame(_ sender: UIButton) {
         startButton.isHidden = true
+        let started = randomPerson()
+        showFact(selected: started)
     }
     
     func getRandomFact() -> (personKey: String, factFromKey: String) {
@@ -75,21 +79,14 @@ class ViewController: UIViewController {
         
         return (personKey, factFromKey)
     }
-    
-    /*func showFactForStart() {
-        let nameOfCeo = getRandomFact().0
-        let factOfCeo = getRandomFact().1
-        let correctPerson = nameOfCeo
-        displayText.text = factOfCeo
-    }*/
 
-    func showFact(sender: String) {
+    func showFact(selected: String) {
         let nameOfCeo = getRandomFact().0
         let factOfCeo = getRandomFact().1
         let correctPerson = nameOfCeo
         displayText.text = factOfCeo
         
-        if  sender == correctPerson {
+        if  selected == correctPerson {
             keepScore(yOrN: true)
         } else {
             keepScore(yOrN: false)
@@ -99,15 +96,17 @@ class ViewController: UIViewController {
     func keepScore(yOrN: Bool) {
         var guessedCorrect = 0
         var guessedIncorrect = 0
-        var intToStrCounterTrue = String(guessedCorrect)
-        var intToStrCounterFalse = String(guessedIncorrect)
         
-        if yOrN {
+        if yOrN == true {
             guessedCorrect += 1
+            var intToStrCounterTrue = String(guessedCorrect)
+            var intToStrCounterFalse = String(guessedIncorrect)
             correctCounter.text = intToStrCounterTrue
             wrongCounter.text = intToStrCounterFalse
         } else {
             guessedIncorrect += 1
+            var intToStrCounterTrue = String(guessedCorrect)
+            var intToStrCounterFalse = String(guessedIncorrect)
             correctCounter.text = intToStrCounterTrue
             wrongCounter.text = intToStrCounterFalse
         }
