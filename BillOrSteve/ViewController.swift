@@ -83,21 +83,21 @@ class ViewController: UIViewController {
     func showFact(selected: String) {
         let nameOfCeo = getRandomFact().0
         let factOfCeo = getRandomFact().1
-        let correctPerson = nameOfCeo
+        var correctPerson = nameOfCeo
         displayText.text = factOfCeo
         
-        if  selected == correctPerson {
+        /*if  selected == correctPerson {
             keepScore(yOrN: true)
         } else {
             keepScore(yOrN: false)
-        }
+        }*/
     }
     
-    func keepScore(yOrN: Bool) {
+    /*func keepScore(yOrN: Bool) {
         var guessedCorrect = 0
         var guessedIncorrect = 0
         
-        if yOrN == true {
+        if yOrN {
             guessedCorrect += 1
             var intToStrCounterTrue = String(guessedCorrect)
             var intToStrCounterFalse = String(guessedIncorrect)
@@ -110,7 +110,7 @@ class ViewController: UIViewController {
             correctCounter.text = intToStrCounterTrue
             wrongCounter.text = intToStrCounterFalse
         }
-    }
+    }*/
     
     func checkForWin() {
         if correctCounter.text == "9" {
