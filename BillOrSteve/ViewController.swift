@@ -66,7 +66,6 @@ class ViewController: UIViewController {
     
     @IBAction func didStartGame(_ sender: UIButton) {
         startButton.isHidden = true
-        correctPerson = randomPerson()
         showFact()
     }
     
@@ -82,9 +81,12 @@ class ViewController: UIViewController {
         
         return (personKey, factFromKey)
     }
-
+// need to make one call that brings in one instance of tuple, then separate that into two. Right now, it instantiates twice with two different values usually. That's why nothing else was working.
     func showFact() {
+        correctPerson = getRandomFact().0
+        print(correctPerson)
         let factOfCeo = getRandomFact().1
+        print(factOfCeo)
         displayText.text = factOfCeo
     }
     
@@ -106,7 +108,7 @@ class ViewController: UIViewController {
             wrongCounter.text = intToStrCounterFalse
         }
     }*/
-    
+
     func checkForWin(choice: String) {
         let nameOfCeo = getRandomFact().0
         
