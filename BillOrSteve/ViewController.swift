@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var wrongCounter: UILabel!
     
     var billAndSteveFacts: [String : [String]] = [:]
-    var correctPerson: String = ""
+    var selectedPerson: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,21 +45,18 @@ class ViewController: UIViewController {
         billAndSteveFacts["Steve Jobs"] = steveFacts
     }
     
-    // The selected person stays on for the next one. The timing of the check needs to be separated and done a step before the way it's being done now.
-    
     @IBAction func answerGuessed(_ sender: UIButton) {
         switch sender {
         case billGatesPortrait:
-            print("Bill Gates Portrait Pressed!")
-            var selectedPerson = "Bill Gates"
+            selectedPerson = "Bill Gates"
             showFact()
-            checkForWin(choice: selectedPerson)
+            checkForWin()
         case steveJobsPortrait:
-            print("Steve Jobs Portrait Pressed!")
-            var selectedPerson = "Steve Jobs"
+            selectedPerson = "Steve Jobs"
             showFact()
-            checkForWin(choice: selectedPerson)
+            checkForWin()
         default:
+            displayText.text = "Nothing was selected!"
             print("Nothing registered")
         }
     }
@@ -81,40 +78,47 @@ class ViewController: UIViewController {
         
         return (personKey, factFromKey)
     }
-// need to make one call that brings in one instance of tuple, then separate that into two. Right now, it instantiates twice with two different values usually. That's why nothing else was working.
-    func showFact() {
-        correctPerson = getRandomFact().0
-        print(correctPerson)
-        let factOfCeo = getRandomFact().1
-        print(factOfCeo)
-        displayText.text = factOfCeo
-    }
     
-    /*func keepScore(yOrN: Bool) {
-        var guessedCorrect = 0
-        var guessedIncorrect = 0
+    func showFact() {
+        var correctlyGuessed = 0
+        var incorrectlyGuessed = 0
+        var returnedTuple = getRandomFact()
+        var correctPerson = returnedTuple.0
+        var factOfCeo = returnedTuple.1
+        displayText.text = factOfCeo
         
-        if yOrN {
-            guessedCorrect += 1
-            var intToStrCounterTrue = String(guessedCorrect)
-            var intToStrCounterFalse = String(guessedIncorrect)
-            correctCounter.text = intToStrCounterTrue
-            wrongCounter.text = intToStrCounterFalse
-        } else {
-            guessedIncorrect += 1
-            var intToStrCounterTrue = String(guessedCorrect)
-            var intToStrCounterFalse = String(guessedIncorrect)
-            correctCounter.text = intToStrCounterTrue
-            wrongCounter.text = intToStrCounterFalse
+        if selectedPerson == "" {
+            print("Game just started, selectedPerson is empty")
+        } else if selectedPerson != "" && selectedPerson != nil {
+            if selectedPerson == correctPerson {
+                print("correctPerson comparison to selectedPerson is being checked.")
+                correctlyGuessed += 1
+                print(correctlyGuessed, incorrectlyGuessed)
+                correctCounter.text = String(correctlyGuessed)
+                wrongCounter.text = String(incorrectlyGuessed)
+            } else if selectedPerson != correctPerson {
+                print("incorrectlyGuessed is being run")
+                incorrectlyGuessed += 1
+                print(correctlyGuessed, incorrectlyGuessed)
+                correctCounter.text = String(correctlyGuessed)
+                wrongCounter.text = String(incorrectlyGuessed)
+            }
         }
-    }*/
+    }
 
-    func checkForWin(choice: String) {
-        let nameOfCeo = getRandomFact().0
+    func checkForWin() {
         
         if correctCounter.text == "9" {
             print("Game Won!")
             displayText.text = "You Won!"
+            startButton.isHidden = false
+            startButton.setTitle("Play Again?", for: .normal)
+            steveJobsPortrait.isHidden = true
+            billGatesPortrait.isHidden = true
+        } else if wrongCounter.text == "9" {
+            print("You Lost!")
+            startButton.isHidden = false
+            startButton.setTitle("Play Again?", for: .normal)
             steveJobsPortrait.isHidden = true
             billGatesPortrait.isHidden = true
         }
@@ -134,3 +138,10 @@ class ViewController: UIViewController {
         }
     }
 }
+
+/*
+ - When the game started, the first fact was Steve's, but gave wrong counter 1 figure this out, possibly that the var doesnt change in time?
+ - The counters nuke everything and doesn't retain the state, which indicates that the function running again nukes, needs to store the property elsewhere?
+ */
+
+
