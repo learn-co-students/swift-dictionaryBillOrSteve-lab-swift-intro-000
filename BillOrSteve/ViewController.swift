@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var stevesName: UILabel!
+    @IBOutlet weak var billsName: UILabel!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var displayText: UILabel!
     @IBOutlet weak var steveJobsPortrait: UIButton!
@@ -19,6 +21,8 @@ class ViewController: UIViewController {
     
     var billAndSteveFacts: [String : [String]] = [:]
     var selectedPerson: String = ""
+    var correctlyGuessed: Int = 0
+    var incorrectlyGuessed: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +66,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didStartGame(_ sender: UIButton) {
+        selectedPerson = ""
+        correctCounter.text = "0"
+        wrongCounter.text = "0"
+        correctlyGuessed = 0
+        incorrectlyGuessed = 0
+        steveJobsPortrait.isHidden = false
+        billGatesPortrait.isHidden = false
+        stevesName.text = "Steve"
+        billsName.text = "Bill"
         startButton.isHidden = true
         showFact()
     }
@@ -80,47 +93,40 @@ class ViewController: UIViewController {
     }
     
     func showFact() {
-        var correctlyGuessed = 0
-        var incorrectlyGuessed = 0
         var returnedTuple = getRandomFact()
         var correctPerson = returnedTuple.0
         var factOfCeo = returnedTuple.1
         displayText.text = factOfCeo
         
-        if selectedPerson == "" {
-            print("Game just started, selectedPerson is empty")
-        } else if selectedPerson != "" && selectedPerson != nil {
-            if selectedPerson == correctPerson {
-                print("correctPerson comparison to selectedPerson is being checked.")
-                correctlyGuessed += 1
-                print(correctlyGuessed, incorrectlyGuessed)
-                correctCounter.text = String(correctlyGuessed)
-                wrongCounter.text = String(incorrectlyGuessed)
-            } else if selectedPerson != correctPerson {
-                print("incorrectlyGuessed is being run")
-                incorrectlyGuessed += 1
-                print(correctlyGuessed, incorrectlyGuessed)
-                correctCounter.text = String(correctlyGuessed)
-                wrongCounter.text = String(incorrectlyGuessed)
-            }
+        if selectedPerson == correctPerson {
+            correctlyGuessed += 1
+            correctCounter.text = String(correctlyGuessed)
+            wrongCounter.text = String(incorrectlyGuessed)
+        } else if selectedPerson != "" && selectedPerson != correctPerson {
+            incorrectlyGuessed += 1
+            correctCounter.text = String(correctlyGuessed)
+            wrongCounter.text = String(incorrectlyGuessed)
         }
     }
 
     func checkForWin() {
         
         if correctCounter.text == "9" {
-            print("Game Won!")
             displayText.text = "You Won!"
             startButton.isHidden = false
             startButton.setTitle("Play Again?", for: .normal)
             steveJobsPortrait.isHidden = true
             billGatesPortrait.isHidden = true
+            stevesName.text = ""
+            billsName.text = ""
         } else if wrongCounter.text == "9" {
-            print("You Lost!")
+            displayText.text = "You Lost!"
             startButton.isHidden = false
             startButton.setTitle("Play Again?", for: .normal)
             steveJobsPortrait.isHidden = true
             billGatesPortrait.isHidden = true
+            stevesName.text = ""
+            billsName.text = ""
         }
     }
     
@@ -138,10 +144,3 @@ class ViewController: UIViewController {
         }
     }
 }
-
-/*
- - When the game started, the first fact was Steve's, but gave wrong counter 1 figure this out, possibly that the var doesnt change in time?
- - The counters nuke everything and doesn't retain the state, which indicates that the function running again nukes, needs to store the property elsewhere?
- */
-
-
