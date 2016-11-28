@@ -29,11 +29,18 @@
                                         <frame key="frameInset" minX="235" minY="53" width="131" height="193"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="bill" image="BillGates"/>
+                                        <connections>
+                                            <action selector="billClicked" destination="BYZ-38-t0r" eventType="touchUpInside" id="fD2-Jn-QSM"/>
+                                            <action selector="billClickedWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9kv-dC-JXF"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="waZ-S2-rBo">
                                         <frame key="frameInset" minX="57" minY="52" width="129" height="195"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="steve" image="SteveJobs"/>
+                                        <connections>
+                                            <action selector="steveClickedWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cXv-yH-Y3S"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Bill" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3WI-Pj-U8T">
                                         <frame key="frameInset" minX="258" minY="7" width="84" height="33"/>
@@ -62,6 +69,12 @@
                         </subviews>
                         <color key="backgroundColor" red="0.73637519537155316" green="0.86673383875809507" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="billButton" destination="3WI-Pj-U8T" id="wPe-pa-nQh"/>
+                        <outlet property="factLabel" destination="mVc-Ct-l0W" id="Pvd-ZQ-RML"/>
+                        <outlet property="scoreCounter" destination="EDs-I2-kTY" id="l1n-eJ-5IG"/>
+                        <outlet property="steveButton" destination="Bjg-Hq-bR1" id="Jig-z6-KyU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
