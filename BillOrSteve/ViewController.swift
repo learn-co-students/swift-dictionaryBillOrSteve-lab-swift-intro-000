@@ -81,8 +81,6 @@ class ViewController: UIViewController {
             let index = randomIndex(fromArray: arr)
             fact = arr[index]
         }
-        // remove fact from dictionary once gotten
-        billandstevefacts.remove(at: fact)
         return (person, fact)
         }
     
