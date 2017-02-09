@@ -69,7 +69,11 @@ class ViewController: UIViewController {
         let index = randomIndex(fromArray: copy)
         let fact = copy[index]
         copy.remove(at: index)
-        billAndSteveFacts[person] = copy.isEmpty ? nil : copy
+        if copy.isEmpty {
+            billAndSteveFacts[person] = nil
+        } else {
+            billAndSteveFacts[person] = copy
+        }
         return fact
     }
     
