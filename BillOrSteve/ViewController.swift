@@ -22,11 +22,14 @@ class ViewController: UIViewController {
     
     // Create your stored properties here
     var billAndSteveFacts: [String : [String]] = [:]
+    var correctPerson: String = ""
+    var counter: Int = 0
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        createFacts()
+        showFact()
     }
     
     func createFacts() {
@@ -55,51 +58,46 @@ class ViewController: UIViewController {
     
     func randomPerson() -> String {
         let randomNumber = arc4random_uniform(2)
-        
-        if randomNumber == 0 {
-            return "Steve Jobs"
-        } else {
-            return "Bill Gates"
-        }
+        return randomNumber == 0 ? "Steve Jobs" : "Bill Gates"
     }
     
     func getRandomFact() -> (String, String) {
-        randomPerson()
-//        for (index, value) in billAndSteveFacts {
-//            return String(randomIndex(fromArray: [(index)])); (value)
-//        }
-        return ("Bill Gates", "Steve Jobs")
+        let person = randomPerson()
+        
+        let facts = billAndSteveFacts[person]!
+        
+        let index = randomIndex(fromArray: facts)
+        
+        let fact = facts[index]
+        
+        return (person, fact)
+
     }
     
     func showFact() {
-        var correctPerson: String = ""
+        let (person, fact) = getRandomFact()
         
-    
-        if getRandomFact() == ("Bill Gates", "1") {
-            correctPerson = "Bill Gates"
-            factCounter.text = "1/9"
-            steveBtn.isHidden = true
-            steveLabel.isHidden = true
-        } else {
-            correctPerson = "Steve Jobs"
-            factCounter.text = "1/9"
-            billBtn.isHidden = true
-            billLabel.isHidden = true
-        }
+        correctPerson = person
+        factLabel.text = fact
         
     }
     
     @IBAction func steveBtnPressed(_ sender: UIButton) {
-        getRandomFact()
-        
+        if correctPerson == "Steve Jobs" {
+            counter += 1
+            factCounter.text = String(counter)
+        }
         showFact()
     }
     
     @IBAction func billBtnPressed(_ sender: UIButton) {
-        getRandomFact()
-        
+        if correctPerson == "Bill Gates" {
+            counter += 1
+            factCounter.text = String(counter)
+        }
         showFact()
     }
+    
     @IBAction func nextFact(_ sender: UIButton) {
         nextQuestion()
     }
