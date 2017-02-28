@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     var correctAnswer: String = ""
     var counter: Int = 0
     var numberOfQuestions: Int = 0
-    var factsAlreadyDisplayed: [String] = []
     
     
     override func viewDidLoad() {
@@ -72,8 +71,6 @@ class ViewController: UIViewController {
         let index = randomIndex(fromArray: facts)
         
         let fact = facts[index]
-        
-        factsAlreadyDisplayed.append(fact)
     
         return (person, fact)
         
