@@ -35,41 +35,39 @@ class ViewController: UIViewController {
         let showRandomFact = getRandomFact()
         factLabel.text = "\(showRandomFact.fact)"
         correctPerson = showRandomFact.name
+        
     }
 
     @IBOutlet weak var factLabel: UILabel!
     @IBOutlet weak var scoreCounter: UILabel!
     @IBOutlet weak var steveOutlet: UIButton!
     @IBOutlet weak var billOutlet: UIButton!
-    @IBAction func steveButton(_ sender: Any) {
-        let buttonName = "Steve Jobs"
-        if buttonName == correctPerson {
-            score+=1
-            scoreCounter.text = "\(score)"
-            showFact()
-        } else {
-            showFact()
-        }
-    }
-    
-    @IBAction func billButton(_ sender: Any) {
-        let buttonName = "Bill Gates"
-        if buttonName == correctPerson {
-            score+=1
-            scoreCounter.text = "\(score)"
-            showFact()
-        } else {
-            showFact()
-        }
-    }
+
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         createFacts()
         showFact()
     }
     
+    @IBAction func steveButton(_ sender: Any) {
+        let buttonName = "Steve Jobs"
+        if buttonName == correctPerson {
+            score+=1
+        }
+        scoreCounter.text = "\(score) / 9"
+        showFact()
+        
+    }
     
-    
+    @IBAction func billButton(_ sender: Any) {
+            let buttonName = "Bill Gates"
+            if buttonName == correctPerson {
+                score+=1
+            }
+        scoreCounter.text = "\(score) / 9"
+        showFact()
+    }
     
     
     // Helper Functions
@@ -90,11 +88,34 @@ class ViewController: UIViewController {
     func getRandomFact() -> (name: String, fact: String) {
         let randomName = randomPerson()
         var randomFact = ""
+        var otherName = ""
+        var nameUsed = ""
+        
+        //find out which name
+        if randomName == "Steve Jobs" {
+            otherName = "Bill Gates"
+        } else {
+            otherName = "Steve Jobs"
+        }
+        
+        //if array is empty, switch names
+        if billAndSteveFacts[randomName]!.isEmpty && billAndSteveFacts[otherName]!.isEmpty {
+            factLabel.text = "GAME OVER!"
+        } else if billAndSteveFacts[randomName]!.isEmpty {
+            nameUsed = otherName
+        } else if billAndSteveFacts[otherName]!.isEmpty {
+            nameUsed = randomName
+        }
+        
         //let randomFactOptional = billAndSteveFacts[randomName]
-        if let randomFactArray = billAndSteveFacts[randomName] {
+        if let randomFactArray = billAndSteveFacts[nameUsed] {
             randomFact = randomFactArray[randomIndex(fromArray: randomFactArray)]
         }
-        return (name: randomName, fact: randomFact)
+        
+        let removedIndex = billAndSteveFacts[nameUsed]!.index(of: randomFact)
+        billAndSteveFacts[nameUsed]!.remove(at:removedIndex!)
+        
+        return (name: nameUsed, fact: randomFact)
     }
     
 }
