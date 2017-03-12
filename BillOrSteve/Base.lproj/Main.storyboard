@@ -74,7 +74,7 @@
                     <connections>
                         <outlet property="billButton" destination="pmx-kv-Kjc" id="9dx-7F-oXP"/>
                         <outlet property="factLabel" destination="mVc-Ct-l0W" id="TCG-si-46n"/>
-                        <outlet property="score" destination="EDs-I2-kTY" id="QhJ-Fr-oNP"/>
+                        <outlet property="scoreLabel" destination="EDs-I2-kTY" id="HKB-37-r6g"/>
                         <outlet property="steveButton" destination="waZ-S2-rBo" id="8uk-Xa-Q6k"/>
                     </connections>
                 </viewController>

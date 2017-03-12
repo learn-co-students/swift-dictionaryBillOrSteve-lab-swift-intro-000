@@ -10,22 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    
-    @IBOutlet weak var factLabel: UILabel!
-    @IBOutlet weak var scoreLabel: UILabel!
-    @IBOutlet weak var steveButton: UIButton!
-    @IBOutlet weak var billButton: UIButton!
-    
-    @IBAction func steveButtonPressed(_ sender: Any) {
-        if correctPerson == "Steve Jobs" {
-            
-        }
-    }
-    
-    @IBAction func billButtonPressed(_ sender: Any) {
-        
-    }
-    
     var facts: [String: [String]] = [:]
     var correctPerson = ""
     var score = 0 {
@@ -34,9 +18,36 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var factLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var steveButton: UIButton!
+    @IBOutlet weak var billButton: UIButton!
+    
+    @IBAction func steveButtonPressed(_ sender: Any) {
+        if correctPerson == "Steve Jobs" {
+            score += 1
+        } else {
+            score -= 1
+        }
+        
+        showFact()
+    }
+    
+    @IBAction func billButtonPressed(_ sender: Any) {
+        if correctPerson == "Bill Gates" {
+            score += 1
+        } else {
+            score -= 1
+        }
+        
+        showFact()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        createFacts()
+        showFact()
     }
     
     // Helper Functions
@@ -75,12 +86,13 @@ class ViewController: UIViewController {
     
     func getRandomFact() -> (String, String) {
         let person = randomPerson()
-        guard let facts = facts[person] else {
-            return ("error", "error")
+        if let facts = facts[person] {
+            let index = randomIndex(fromArray: facts)
+            return (person, facts[index])
+            
         }
         
-        let index = randomIndex(fromArray: facts)
-        return (person, facts[index])
+        return ("error", "error")
     }
     
     func showFact() {
