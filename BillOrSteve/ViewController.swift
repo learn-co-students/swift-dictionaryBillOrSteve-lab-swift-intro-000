@@ -12,22 +12,27 @@ class ViewController: UIViewController {
     
     
     @IBOutlet weak var factLabel: UILabel!
-    @IBOutlet weak var score: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var steveButton: UIButton!
     @IBOutlet weak var billButton: UIButton!
     
     @IBAction func steveButtonPressed(_ sender: Any) {
+        if correctPerson == "Steve Jobs" {
+            
+        }
     }
     
     @IBAction func billButtonPressed(_ sender: Any) {
+        
     }
     
-    
-    
-    
-    
-    
     var facts: [String: [String]] = [:]
+    var correctPerson = ""
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "\(score)"
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -78,6 +83,14 @@ class ViewController: UIViewController {
         return (person, facts[index])
     }
     
+    func showFact() {
+        let randomFact = getRandomFact()
+        let person = randomFact.0
+        let fact = randomFact.1
+    
+        factLabel.text = fact
+        correctPerson = person
+    }
 }
 
 
