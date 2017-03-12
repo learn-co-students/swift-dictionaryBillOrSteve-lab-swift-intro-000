@@ -69,7 +69,7 @@ class ViewController: UIViewController {
         let billFacts = [
             "He aimed to become a millionaire by the age of 30. However, he became a billionaire at 31.",
             "He scored 1590 (out of 1600) on his SATs.",
-            "His foundation spends moreo n global health each year than the United Nation's World Health Organization.",
+            "His foundation spends more on global health each year than the United Nation's World Health Organization.",
             "The private school he attended as a child was one of the only schools in the US with a computer. The first program he ever used was a tic-tac-toe game.",
             "In 1994, he was asked by a TV interviewer if he could jump over a chair from a standing position. He promptly took the challenge and leapt over the chair like a boss."
         ]
@@ -85,14 +85,34 @@ class ViewController: UIViewController {
     }
     
     func getRandomFact() -> (String, String) {
-        let person = randomPerson()
-        if let facts = facts[person] {
-            let index = randomIndex(fromArray: facts)
-            return (person, facts[index])
+        var person = randomPerson()
+        
+        // if randomly selected person's facts array is empty, switch person variable to the other person.
+        if let temp = facts[person] {
+            if temp.isEmpty {
+                 person = person == "Bill Gates" ? "Steve Jobs" : "Bill Gates"
+            }
+        }
+        
+        if let tempFacts = facts[person] {
+            // if one of the arrays was empty, this second check will determine if the other facts array is empty as well and if so show "Game Over."
+            if tempFacts.isEmpty {
+                billButton.isUserInteractionEnabled = false
+                steveButton.isUserInteractionEnabled = false
+                return ("", "Game Over")
+            } else {
+                // if the facts array is not empty, remove a fact from the array and show it.
+                let index = randomIndex(fromArray: tempFacts)
+                let fact = facts[person]?.remove(at: index)
+            
+                if let fact = fact {
+                    return (person, fact)
+                }
+            }
             
         }
         
-        return ("error", "error")
+        return ("", "")
     }
     
     func showFact() {
