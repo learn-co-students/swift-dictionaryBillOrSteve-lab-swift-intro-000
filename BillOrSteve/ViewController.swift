@@ -26,8 +26,10 @@ class ViewController: UIViewController {
     @IBAction func steveButtonPressed(_ sender: Any) {
         if correctPerson == "Steve Jobs" {
             score += 1
+            animateScoreIncrease()
         } else {
             score -= 1
+            animateScoreDecrease()
         }
         
         showFact()
@@ -36,8 +38,10 @@ class ViewController: UIViewController {
     @IBAction func billButtonPressed(_ sender: Any) {
         if correctPerson == "Bill Gates" {
             score += 1
+            animateScoreIncrease()
         } else {
             score -= 1
+            animateScoreDecrease()
         }
         
         showFact()
@@ -122,6 +126,30 @@ class ViewController: UIViewController {
     
         factLabel.text = fact
         correctPerson = person
+    }
+    
+    func animateScoreIncrease() {
+        UILabel.animate(withDuration: 0.7, animations: { () -> Void in
+            self.scoreLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            self.scoreLabel.textColor = UIColor.init(red: 19/255, green: 196/255, blue: 105/255, alpha: 1)
+        }) { (finished: Bool) -> Void in
+            UILabel.animate(withDuration: 0.2, animations: { () -> Void in
+                self.scoreLabel.transform = CGAffineTransform.identity
+                self.scoreLabel.textColor = UIColor.black
+                
+            })}
+    }
+    
+    func animateScoreDecrease() {
+        UILabel.animate(withDuration: 0.7, animations: { () -> Void in
+            self.scoreLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            self.scoreLabel.textColor = UIColor.red
+        }) { (finished: Bool) -> Void in
+            UILabel.animate(withDuration: 0.2, animations: { () -> Void in
+                self.scoreLabel.transform = CGAffineTransform.identity
+                self.scoreLabel.textColor = UIColor.black
+                
+            })}
     }
 }
 
