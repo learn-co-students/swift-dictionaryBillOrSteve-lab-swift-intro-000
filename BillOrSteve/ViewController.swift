@@ -11,17 +11,41 @@ import UIKit
 class ViewController: UIViewController {
     
     // Create your stored properties here
+    var setOfFacts : [String: [String]] = [:]
+    var correctPerson: String = ""
+    var count = 0
     
+    @IBOutlet weak var factLabel: UILabel!
+    @IBOutlet weak var score: UILabel!
+    @IBOutlet weak var steveOutlet: UIButton!
+    @IBOutlet weak var billOutlet: UIButton!
+
+    @IBAction func steveAction(_ sender: UIButton) {
+        if correctPerson == "Steve Jobs"{
+            count += 1
+            score.text = String(count)
+        }
+        showFact()
+    }
+    @IBAction func billAction(_ sender: UIButton) {
+        if correctPerson == "Bill Gates"{
+            count += 1
+            score.text = String(count)
+        }
+        showFact()
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        createFacts()
+        showFact()
     }
     
     
-    
-    
-    
     // Helper Functions
+ 
+    
     func randomIndex(fromArray array: [String]) -> Int {
         return Int(arc4random_uniform(UInt32(array.count)))
     }
@@ -35,5 +59,64 @@ class ViewController: UIViewController {
             return "Bill Gates"
         }
     }
+    
+    func createFacts() {
+        
+        let billFacts : [String] = [
+            
+                                    "He aimed to become a millionaire by the age of 30. However, he became a billionaire at 31.",
+        
+                                    "He scored 1590 (out of 1600) on his SATs.",
+        
+                                    "His foundation spends more on global health each year than the United Nation's World Health Organization.",
+            
+                                    "The private school he attended as a child was one of the only schools in the US with a computer. The first program he ever used was a tic-tac-toe game.",
+            
+                                    "In 1994, he was asked by a TV interviewer if he could jump over a chair from a standing position. He promptly took the challenge and leapt over the chair like a boss."
+        
+                                    ]
+        
+        
+        let steveFacts : [String] = [
+            
+                                    "He took a calligraphy course, which he says was instrumental in the       future company products' attention to typography and font.",
+                                     
+                                     "Shortly after being shooed out of his company, he applied to fly on the Space Shuttle as a civilian astronaut (he was rejected) and even considered starting a computer company in the Soviet Union.",
+        
+                                    "He actually served as a mentor for Google founders Sergey Brin and Larry Page, even sharing some of his advisers with the Google duo.",
+                                    
+                                    "He was a pescetarian, meaning he ate no meat except for fish."
+            
+                                    ]
+        
+        setOfFacts["Bill Gates"] = billFacts
+        setOfFacts["Steve Jobs"] = steveFacts
+    }
+    
+    func getRandomFact() -> (person: String, fact: String) {
+        
+        let person = randomPerson()
+        
+        
+        if let facts = setOfFacts[person]{
+            let index = randomIndex(fromArray: facts)
+            let fact = facts[index]
+            
+            return (person, fact)
+            
+        } else {
+        
+            return ("nil", "nil")
+        }
+    
+    }
+    
+    func showFact() {
+        let (person, fact) = getRandomFact()
+        correctPerson = person
+        factLabel.text = fact
+    }
+    
+
     
 }
