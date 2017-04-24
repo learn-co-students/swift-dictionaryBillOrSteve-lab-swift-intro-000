@@ -9,17 +9,79 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet weak var steveButton: UIButton!
+    @IBOutlet weak var billButton: UIButton!
+    @IBOutlet weak var factLabel: UILabel!
+    @IBOutlet weak var currentScore: UILabel!
+    
+    var currentScore_val: Int = 0
+    
+    var correctPerson: String = ""
+    
+    var gameover: Bool = false
     
     // Create your stored properties here
-    
+    var billAndSteveFacts: [String: [String]] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        resetGame( )
     }
     
+    func resetGame( ){
+        createFacts( )
+        factLabel.text = ""
+        currentScore.text = "0"
+        showFact( )
+    }
     
+    func endGame( ){
+        gameover = true
+        factLabel.text = "Game Over"
+    }
     
+    func showFact( ){
+        let selected_fact = getRandomFact()
+        if(selected_fact.0 == ""){
+            endGame( )
+        }
+        else{
+            correctPerson = selected_fact.0
+        	factLabel.text = selected_fact.1
+        }
+    }
     
+    func createFacts( ){
+        let billFacts = [
+            "He aimed to become a millionaire by the age of 30. However, he became a billionaire at 31.",
+            "He scored 1590 (out of 1600) on his SATs.",
+            "His foundation spends more on global health each year than the United Nation's World Health Organization.",
+            "The private school he attended as a child was one of the only schools in the US with a computer. The first program he ever used was a tic-tac-toe game.",
+            "In 1994, he was asked by a TV interviewer if he could jump over a chair from a standing position. He promptly took the challenge and leapt over the chair like a boss."
+        ]
+        let steveFacts = [
+            "He took a calligraphy course, which he says was instrumental in the future company products' attention to typography and font.",
+            "Shortly after being shooed out of his company, he applied to fly on the Space Shuttle as a civilian astronaut (he was rejected) and even considered starting a computer company in the Soviet Union.",
+            "He actually served as a mentor for Google founders Sergey Brin and Larry Page, even sharing some of his advisers with the Google duo.",
+            "He was a pescetarian, meaning he ate no meat except for fish."
+        ]
+        
+        billAndSteveFacts["Bill Gates"] = billFacts
+        billAndSteveFacts["Steve Jobs"] = steveFacts
+    }
+    
+    @IBAction func guessPerson(_ sender: UIButton) {
+        if(!gameover){
+            if (correctPerson == "Steve Jobs" && sender.currentTitle == "steve") || (correctPerson == "Bill Gates" && sender.currentTitle == "bill"){
+                currentScore_val += 1
+                currentScore.text = "\(currentScore_val)"
+                showFact( )
+            }
+            else{
+                showFact( )
+            }
+        }
+    }
     
     // Helper Functions
     func randomIndex(fromArray array: [String]) -> Int {
@@ -29,11 +91,36 @@ class ViewController: UIViewController {
     func randomPerson() -> String {
         let randomNumber = arc4random_uniform(2)
         
+        var person = "Bill Gates"
         if randomNumber == 0 {
-            return "Steve Jobs"
-        } else {
-            return "Bill Gates"
+            person = "Steve Jobs"
         }
+        
+        if(billAndSteveFacts[person]?.count == 0){
+            if(person == "Steve Jobs"){
+                person = "Bill Gates"
+            }
+            else{
+                person = "Steve Jobs"
+            }
+        }
+        
+        return person
+    }
+    
+    func getRandomFact( ) -> (String, String){
+        let person = randomPerson()
+        var random_fact = ""
+        if let facts = billAndSteveFacts[person]{
+            if(facts.count == 0){
+                return ("", "")
+            }
+            let fact_index = randomIndex(fromArray: facts)
+            random_fact = facts[fact_index]
+            billAndSteveFacts[person]?.remove(at: fact_index)
+        }
+        
+        return (person, random_fact)
     }
     
 }
