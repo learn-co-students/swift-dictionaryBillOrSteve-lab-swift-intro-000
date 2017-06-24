@@ -11,14 +11,62 @@ import UIKit
 class ViewController: UIViewController {
     
     // Create your stored properties here
+    var billAndSteveFacts: [String : [String]] = [:]
+    var counter : Int = 1
+    var correctAns : String = ""
     
+    
+    @IBOutlet weak var number: UILabel!
+    @IBOutlet weak var factLabel: UILabel!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        createFacts()
+        showFact()
+        
+    }
+    
+    func showFact() {
+        let myTuple: (key: String, val: String) = getRandomFact()
+        correctAns = myTuple.key
+        factLabel?.text = myTuple.val
+        number?.text = String(counter)
+    }
+    
+    func createFacts() {
+        let steveFacts = ["He took a calligraphy course, which he says was instrumental in the future company products' attention to typography and font.", "Shortly after being shooed out of his company, he applied to fly on the Space Shuttle as a civilian astronaut (he was rejected) and even considered starting a computer company in the Soviet Union.", "He actually served as a mentor for Google founders Sergey Brin and Larry Page, even sharing some of his advisers with the Google duo.", "He was a pescetarian, meaning he ate no meat except for fish."]
+        
+        let billFacts = ["He aimed to become a millionaire by the age of 30. However, he became a billionaire at 31.", "He scored 1590 (out of 1600) on his SATs.", "His foundation spends more on global health each year than the United Nation's World Health Organization.", "The private school he attended as a child was one of the only schools in the US with a computer. The first program he ever used was a tic-tac-toe game.", "In 1994, he was asked by a TV interviewer if he could jump over a chair from a standing position. He promptly took the challenge and leapt over the chair like a boss."]
+        
+        billAndSteveFacts["Bill Gates"] = billFacts
+        billAndSteveFacts["Steve Jobs"] = steveFacts
     }
     
     
+    func getRandomFact() -> (String, String) {
+        let key = randomPerson()
+        let index = randomIndex(fromArray: billAndSteveFacts[key]!)
+        let fact = billAndSteveFacts[key]![index]
+        return(key,fact)
+    }
     
+    
+    @IBAction func steveAns(_ sender: Any) {
+        if correctAns == "Steve Jobs" {
+            counter += 1
+            number.text = String(counter)
+        }
+        showFact()
+    }
+    
+    @IBAction func billAns(_ sender: Any) {
+        if correctAns == "Bill Gates" {
+            counter += 1
+            number.text = String(counter)
+        }
+        showFact()
+    }
     
     
     // Helper Functions
@@ -35,5 +83,10 @@ class ViewController: UIViewController {
             return "Bill Gates"
         }
     }
+    
+    
+    
+    
+    
     
 }
