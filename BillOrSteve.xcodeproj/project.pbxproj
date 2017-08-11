@@ -104,6 +104,7 @@
 				TargetAttributes = {
 					5B9D1B921D08603800522058 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = T3T2ZC4NTJ;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -258,9 +259,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = T3T2ZC4NTJ;
 				INFOPLIST_FILE = BillOrSteve/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.flatironSchool.BillOrSteve;
+				PRODUCT_BUNDLE_IDENTIFIER = hansel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -270,9 +272,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = T3T2ZC4NTJ;
 				INFOPLIST_FILE = BillOrSteve/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.flatironSchool.BillOrSteve;
+				PRODUCT_BUNDLE_IDENTIFIER = hansel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
