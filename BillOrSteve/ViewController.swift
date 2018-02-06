@@ -55,9 +55,6 @@ class ViewController: UIViewController {
                 self.startButton.isHidden = false
             }
         }
-        print(counter)
-        print("Bills: \(billAndSteveFacts["Bill Gates"]?.count)")
-        print("Steves: \(billAndSteveFacts["Steve Jobs"]?.count)")
     }
     
     @IBAction func startNewGame(_ sender: UIButton) {
