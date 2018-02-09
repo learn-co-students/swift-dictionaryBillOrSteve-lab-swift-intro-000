@@ -18,25 +18,47 @@ class ViewController: UIViewController {
     
     var billAndSteveFacts: [String : [String]] = [:]
     var correctPerson: String = ""
+    var score = 0
+    var questionCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         createFacts()
+        showFact()
     }
     
     @IBAction func stevePressed(_ sender: UIButton) {
+        questionCount+=1
+        if correctPerson == "Steve Jobs" {
+            score+=1
+            scoreLabel.text = "\(score) \\ \(questionCount)"
+            showFact()
+        } else {
+            scoreLabel.text = "\(score) \\ \(questionCount)"
+            showFact()
+        }
+        
     }
     
     @IBAction func billPressed(_ sender: UIButton) {
+        questionCount+=1
+        if correctPerson == "Bill Gates" {
+            score+=1
+            scoreLabel.text = "\(score) \\ \(questionCount)"
+            showFact()
+        } else {
+            scoreLabel.text = "\(score) \\ \(questionCount)"
+            showFact()
+        }
     }
     
     func createFacts() {
-        let billFacts = ["He took a calligraphy course, which he says was instrumental in the future company products' attention to typography and font.",
+        let steveFacts = ["He took a calligraphy course, which he says was instrumental in the future company products' attention to typography and font.",
                          "Shortly after being shooed out of his company, he applied to fly on the Space Shuttle as a civilian astronaut (he was rejected) and even considered starting a computer company in the Soviet Union.",
                          "He actually served as a mentor for Google founders Sergey Brin and Larry Page, even sharing some of his advisers with the Google duo.",
                          "He was a pescetarian, meaning he ate no meat except for fish."]
         
-        let steveFacts = ["He aimed to become a millionaire by the age of 30. However, he became a billionaire at 31.",
+        let billFacts = ["He aimed to become a millionaire by the age of 30. However, he became a billionaire at 31.",
                           "He scored 1590 (out of 1600) on his SATs.",
                           "His foundation spends more on global health each year than the United Nation's World Health Organization.",
                           "The private school he attended as a child was one of the only schools in the US with a computer. The first program he ever used was a tic-tac-toe game.",
@@ -48,12 +70,21 @@ class ViewController: UIViewController {
     
     func getRandomFact() -> (String, String) {
         
-        // implement your function here
-        return ("","")
+        let selectedPerson = randomPerson()
+        let selectedFactArray = billAndSteveFacts[selectedPerson]
+        let selectedFactIndex = randomIndex(fromArray: selectedFactArray!)
+        let factString = selectedFactArray![selectedFactIndex]
+        correctPerson = selectedPerson
+        
+        return ("\(selectedPerson)","\(factString)")
     }
     
     func showFact () {
-        
+        let personFactTuple = getRandomFact()
+        factLabel.text = personFactTuple.1
+        correctPerson = personFactTuple.0
+        print("personFactTuple = \(personFactTuple)")
+        print("correctPerson = \(correctPerson)")
     }
     
     // Helper Functions
