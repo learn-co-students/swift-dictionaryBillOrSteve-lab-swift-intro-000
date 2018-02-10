@@ -87,9 +87,9 @@ class ViewController: UIViewController {
         var selectedPerson = randomPerson()
         // create if statement for an empty array
         var selectedFactArray = billAndSteveFacts[selectedPerson]
-        print("\(String(describing: billAndSteveFacts["Bill Gates"]?.isEmpty))")
-        print("\(String(describing: billAndSteveFacts["Steve Jobs"]?.isEmpty))")
-        print("---------------------------------")
+        //print("\(String(describing: billAndSteveFacts["Bill Gates"]?.isEmpty))")
+        //print("\(String(describing: billAndSteveFacts["Steve Jobs"]?.isEmpty))")
+        //print("---------------------------------")
         if (billAndSteveFacts["Bill Gates"]?.isEmpty)! && !(billAndSteveFacts["Steve Jobs"]?.isEmpty)! {
             selectedPerson = "Steve Jobs"
             selectedFactArray = billAndSteveFacts[selectedPerson]
@@ -97,7 +97,7 @@ class ViewController: UIViewController {
             selectedPerson = "Bill Gates"
             selectedFactArray = billAndSteveFacts[selectedPerson]
         } else if (billAndSteveFacts["Steve Jobs"]?.isEmpty)! && (billAndSteveFacts["Bill Gates"]?.isEmpty)! {
-            print("Resetting Cycle")
+            //print("Resetting Cycle")
             billAndSteveFacts = [:]
             correctPerson = ""
             score = 0
