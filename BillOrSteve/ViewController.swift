@@ -70,12 +70,38 @@ class ViewController: UIViewController {
     
     func getRandomFact() -> (String, String) {
         
-        let selectedPerson = randomPerson()
-        let selectedFactArray = billAndSteveFacts[selectedPerson]
+        var selectedPerson = randomPerson()
+        // create if statement for an empty array
+        var selectedFactArray = billAndSteveFacts[selectedPerson]
+        print("\(String(describing: billAndSteveFacts["Bill Gates"]?.isEmpty))")
+        print("\(String(describing: billAndSteveFacts["Steve Jobs"]?.isEmpty))")
+        print("---------------------------------")
+        if (billAndSteveFacts["Bill Gates"]?.isEmpty)! && !(billAndSteveFacts["Steve Jobs"]?.isEmpty)! {
+            selectedPerson = "Steve Jobs"
+            selectedFactArray = billAndSteveFacts[selectedPerson]
+        } else if !(billAndSteveFacts["Bill Gates"]?.isEmpty)! && (billAndSteveFacts["Steve Jobs"]?.isEmpty)! {
+            selectedPerson = "Bill Gates"
+            selectedFactArray = billAndSteveFacts[selectedPerson]
+        } else if (billAndSteveFacts["Steve Jobs"]?.isEmpty)! && (billAndSteveFacts["Bill Gates"]?.isEmpty)! {
+            print("Resetting Cycle")
+            billAndSteveFacts = [:]
+            correctPerson = ""
+            score = 0
+            questionCount = 0
+            createFacts()
+            selectedPerson = randomPerson()
+            selectedFactArray = billAndSteveFacts[selectedPerson]
+        }
+        
         let selectedFactIndex = randomIndex(fromArray: selectedFactArray!)
+        //print("selectedFactArray = \(selectedFactArray!)")
+        //print("selectedFactIndex = \(selectedFactIndex)")
         let factString = selectedFactArray![selectedFactIndex]
         correctPerson = selectedPerson
-        
+        var removeFactItemArray = billAndSteveFacts[selectedPerson]
+        removeFactItemArray?.remove(at: selectedFactIndex)
+        billAndSteveFacts[selectedPerson] = removeFactItemArray
+        //print("billAndSteveFacts = \(billAndSteveFacts)")
         return ("\(selectedPerson)","\(factString)")
     }
     
@@ -83,8 +109,9 @@ class ViewController: UIViewController {
         let personFactTuple = getRandomFact()
         factLabel.text = personFactTuple.1
         correctPerson = personFactTuple.0
-        print("personFactTuple = \(personFactTuple)")
-        print("correctPerson = \(correctPerson)")
+        //print("personFactTuple = \(personFactTuple)")
+        //print("correctPerson = \(correctPerson)")
+        
     }
     
     // Helper Functions
@@ -93,6 +120,7 @@ class ViewController: UIViewController {
     }
     
     func randomPerson() -> String {
+        
         let randomNumber = arc4random_uniform(2)
         
         if randomNumber == 0 {
@@ -103,3 +131,12 @@ class ViewController: UIViewController {
     }
     
 }
+
+
+
+
+
+
+
+
+
