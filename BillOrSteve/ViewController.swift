@@ -29,9 +29,16 @@ class ViewController: UIViewController {
     
     @IBAction func stevePressed(_ sender: UIButton) {
         questionCount+=1
-        if correctPerson == "Steve Jobs" {
+        if correctPerson == "Steve Jobs" && questionCount == 9 {
+            score+=1
+            scoreLabel.text = "Final Score: \(score) \\ \(questionCount) \nStart Again"
+            showFact()
+        } else if correctPerson == "Steve Jobs" && questionCount != 9   {
             score+=1
             scoreLabel.text = "\(score) \\ \(questionCount)"
+            showFact()
+        } else if questionCount == 9 {
+            scoreLabel.text = "Final Score: \(score) \\ \(questionCount) \nStart Again"
             showFact()
         } else {
             scoreLabel.text = "\(score) \\ \(questionCount)"
@@ -42,9 +49,16 @@ class ViewController: UIViewController {
     
     @IBAction func billPressed(_ sender: UIButton) {
         questionCount+=1
-        if correctPerson == "Bill Gates" {
+        if correctPerson == "Bill Gates" && questionCount == 9 {
+            score+=1
+            scoreLabel.text = "Final Score: \(score) \\ \(questionCount) \nStart Again"
+            showFact()
+        } else if correctPerson == "Bill Gates" && questionCount != 9   {
             score+=1
             scoreLabel.text = "\(score) \\ \(questionCount)"
+            showFact()
+        } else if questionCount == 9 {
+            scoreLabel.text = "Final Score: \(score) \\ \(questionCount) \nStart Again"
             showFact()
         } else {
             scoreLabel.text = "\(score) \\ \(questionCount)"
@@ -88,6 +102,7 @@ class ViewController: UIViewController {
             correctPerson = ""
             score = 0
             questionCount = 0
+            //scoreLabel.text = "\(score) \\ \(questionCount)"
             createFacts()
             selectedPerson = randomPerson()
             selectedFactArray = billAndSteveFacts[selectedPerson]
