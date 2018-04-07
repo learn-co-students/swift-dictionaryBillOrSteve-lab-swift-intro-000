@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     var correctPerson: String = ""
     var roundScore: Int = 0
     var roundsPlayed: Int = 0
+    var correctAnswer: String = ""
     
     @IBOutlet weak var factLabel: UILabel!
     @IBOutlet weak var score: UILabel!
@@ -75,7 +76,39 @@ class ViewController: UIViewController {
         let person: String = randomPerson()
         
         if let arrayOfFacts = billAndSteveFacts[person] {
-            return (person, arrayOfFacts[randomIndex(fromArray: arrayOfFacts)])
+            if arrayOfFacts.count > 0 {
+                return (person, arrayOfFacts[randomIndex(fromArray: arrayOfFacts)])
+            } else if person == "Bill Gates" {
+                return getRandomFactAboutSteve()
+            } else if person == "Steve Jobs" {
+                return getRandomFactAboutBill()
+            } else {
+                return ("", "Game Over!")
+            }
+        } else {
+            return ("Array didn't load correctly", "Array didn't load correctly")
+        }
+    }
+    
+    func getRandomFactAboutSteve() -> (String, String) {
+        if let arrayOfFacts = billAndSteveFacts["Steve Jobs"] {
+            if arrayOfFacts.count > 0 {
+                return ("Steve Jobs", arrayOfFacts[randomIndex(fromArray: arrayOfFacts)])
+            } else {
+                return ("", "Game Over!")
+            }
+        } else {
+            return ("Array didn't load correctly", "Array didn't load correctly")
+        }
+    }
+    
+    func getRandomFactAboutBill() -> (String, String) {
+        if let arrayOfFacts = billAndSteveFacts["Bill Gates"] {
+            if arrayOfFacts.count > 0 {
+                return ("Bill Gates", arrayOfFacts[randomIndex(fromArray: arrayOfFacts)])
+            } else {
+                return ("", "Game Over!")
+            }
         } else {
             return ("Array didn't load correctly", "Array didn't load correctly")
         }
@@ -86,6 +119,8 @@ class ViewController: UIViewController {
         
         correctPerson = personAndFact.0
         factLabel.text = personAndFact.1
+        correctAnswer = personAndFact.1
+        print(correctAnswer)
     }
     
     func checkInput(_ person: String) {
@@ -93,6 +128,10 @@ class ViewController: UIViewController {
             if person == correctPerson {
                 roundScore += 1
                 score.text = "\(roundScore)"
+                if let index = billAndSteveFacts[person]?.index(of: correctAnswer) {
+                    billAndSteveFacts[person]?.remove(at: index)
+                    print(billAndSteveFacts[person])
+                }
             }
             
             showFact()
