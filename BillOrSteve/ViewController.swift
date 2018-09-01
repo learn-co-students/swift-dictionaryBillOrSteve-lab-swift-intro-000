@@ -18,15 +18,20 @@ class ViewController: UIViewController {
     // Create your stored properties here
     var storedFacts: [String : [String]] = [:]
     var correctPerson: String = ""
-    var count: Int = 0
+    var count: Int = 1
+    var clickCount : Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
-        count = 0
     }
     
     func initialize(){
+        // game resets
+        storedFacts = [:]
+        count = 1
+        clickCount = 1
+        scoreCounter.text = "0"
         createFacts()
         showFact()
         incorrectView.alpha = 0
@@ -48,13 +53,14 @@ class ViewController: UIViewController {
                 "He was a pescetarian, meaning he ate no meat except for fish."
             ]
             
-            storedFacts["Bill Gates"] = billFacts
             storedFacts["Steve Jobs"] = steveFacts
+            storedFacts["Bill Gates"] = billFacts
         }
     }
     
     func getRandomFact() -> (String, String) {
         let person = randomPerson()
+        
         guard var personFacts = storedFacts[person] else{
             return (person, "No fact found")
         }
@@ -73,7 +79,18 @@ class ViewController: UIViewController {
     }
     
     func checkGuess(sender: String){
-        if sender == correctPerson{
+        if clickCount == 9{
+            let alert = UIAlertController(title: "Game Over", message: "Total correct: \(count) / 9. Would you like to play again?", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+                self.initialize()
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { action in
+                UIControl().sendAction(#selector(NSXPCConnection.suspend), to: UIApplication.shared, for: nil)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        } else if sender == correctPerson{
             count += 1
             scoreCounter.text = "\(count)"
             showFact()
@@ -87,35 +104,19 @@ class ViewController: UIViewController {
                 })
             }
         }
-        
-        if count == 9{
-            let alert = UIAlertController(title: "Game Over", message: "Total correct: \(count) / 9. Would you like to play again?", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-                self.initialize()
-            }))
-            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { action in
-                UIControl().sendAction(#selector(NSXPCConnection.suspend), to: UIApplication.shared, for: nil)
-            }))
-            
-            self.present(alert, animated: true, completion: nil)
-        }
+        clickCount = clickCount+1
     }
     
-    
+
     @IBAction func billSelect(_ sender: UIButton) {
-        if let titleLabel = sender.titleLabel {
-            if let title = titleLabel.text{
-                checkGuess(sender: title)
-            }
+        if let title = sender.titleLabel?.text {
+            checkGuess(sender: title)
         }
     }
     
     @IBAction func steveSelect(_ sender: UIButton) {
-        if let titleLabel = sender.titleLabel {
-            if let title = titleLabel.text{
-                checkGuess(sender: title)
-            }
+        if let title = sender.titleLabel?.text {
+            checkGuess(sender: title)
         }
     }
     
@@ -127,11 +128,10 @@ class ViewController: UIViewController {
     func randomPerson() -> String {
         let randomNumber = arc4random_uniform(2)
         
-        if randomNumber == 0 {
-            return "Steve Jobs"
-        } else {
-            return "Bill Gates"
-        }
+        print(storedFacts["Steve Jobs"]!.isEmpty )
+        
+         return randomNumber == 0 ? storedFacts["Steve Jobs"]!.isEmpty ? "Bill Gates" : "Steve Jobs" : storedFacts["Bill Gates"]!.isEmpty ? "Steve Jobs" : "Bill Gates"
+
     }
     
 }
